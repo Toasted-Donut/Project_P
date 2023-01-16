@@ -90,18 +90,27 @@ public class StatsFragment extends Fragment {
         pieChart.startAnimation();
 
         new UpdateChart().execute();
-       // setDetails();
         ///
         date1_TextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendar1.setVisibility(View.VISIBLE);
+                if(calendar1.getVisibility() == View.VISIBLE){
+                    calendar1.setVisibility(View.GONE);
+                }
+                else {
+                    calendar1.setVisibility(View.VISIBLE);
+                }
             }
         });
         date2_TextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendar2.setVisibility(View.VISIBLE);
+                if(calendar2.getVisibility() == View.VISIBLE){
+                    calendar2.setVisibility(View.GONE);
+                }
+                else {
+                    calendar2.setVisibility(View.VISIBLE);
+                }
             }
         });
         calendar1.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -109,9 +118,8 @@ public class StatsFragment extends Fragment {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 date1_TextView.setText(String.format("%d.%d.%d",day,month+1,year));
                 calendar1.setVisibility(View.GONE);
-                //TBD
+                calendar2.setVisibility(View.VISIBLE);
                 new UpdateChart().execute();
-                pieChart.startAnimation();
 
             }
         });
@@ -120,7 +128,6 @@ public class StatsFragment extends Fragment {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 date2_TextView.setText(String.format("%d.%d.%d",day,month+1,year));
                 calendar2.setVisibility(View.GONE);
-                //TBD
                 new UpdateChart().execute();
                 pieChart.startAnimation();
             }
@@ -157,16 +164,7 @@ public class StatsFragment extends Fragment {
             s++;
         }
     }
-    private void updateChart(MainActivity mainActivity){
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).start();
-
-    }
     public int getChartColor(int seed) {
         switch (seed){
             case 1: return Color.rgb(237,220,100);
@@ -208,7 +206,6 @@ public class StatsFragment extends Fragment {
     }
 
     class UpdateChart extends AsyncTask<Void,Void,Void>{
-
 
         @Override
         protected Void doInBackground(Void... voids) {

@@ -56,7 +56,7 @@ public class Statistics extends Application{
                 }
             }
         }
-        Log.i("prop",new Gson().toJson(Statistics.this.sums));
+        Log.i("prop",new Gson().toJson(Statistics.this.dict));
     }
     public String toJson(){
         Gson gson = new Gson();
